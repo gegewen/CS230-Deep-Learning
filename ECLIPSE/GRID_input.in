@@ -1,0 +1,38 @@
+DRV
+50*1 /
+
+DZV
+50*1 /
+
+DTHETAV
+360 /
+
+PORO
+2500*0.2 /
+
+PERMR
+2500*2000/
+
+--Note: For alternating the permeability use excel (or better use matlab so you can change it quickly) to autogenerate NZ/2 (e.g. 200) lines of the form 104*value1 104*value2.
+
+
+--Note: If PERMZ is same as PERMR uncomment the relavant line in the following copy command
+COPY
+PERMR PERMTHT /
+PERMR PERMZ /
+/
+
+--Note: If PERMZ is a multiple of PERMR and PERMR is complicated, you can use the MULT keyword
+
+INRAD
+0.1/
+
+COORDSYS
+1 50 COMP /
+--This specifies that the Theta boundary is completed (e.g. each gridblock is a full concentric cyclinder) Default is that the boundary is not connected
+
+
+
+TOPS
+ 50*1940 /
+--Specifies top of topmost gridblocks, which are listed first in the vector of gridblocks. NOTE: gridblock ordering starts at the top and goes along r, then tht, then down to the next lowest z. Some simulators have a different numbering system for gridblocks (like starting at the bottom). That is just the way Eclipse does it and it's important to know for listing PERM and DZ values etc.

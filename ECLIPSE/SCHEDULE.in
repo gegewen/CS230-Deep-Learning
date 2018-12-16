@@ -1,0 +1,54 @@
+WELSPECS
+INJ1 FIELD 1 1 1* GAS /
+/
+
+COMPDAT
+--I J K1 K2 3* WellRadius
+INJ1	1	1	1	2	3*	0.1	/
+INJ1	1	1	3	4	3*	0.1	/
+INJ1	1	1	5	6	3*	0.1	/
+INJ1	1	1	7	8	3*	0.1	/
+INJ1	1	1	9	10	3*	0.1	/
+INJ1	1	1	11	12	3*	0.1	/
+INJ1	1	1	13	14	3*	0.1	/
+INJ1	1	1	15	16	3*	0.1	/
+INJ1	1	1	17	18	3*	0.1	/
+INJ1	1	1	19	20	3*	0.1	/
+INJ1	1	1	21	22	3*	0.1	/
+INJ1	1	1	23	24	3*	0.1	/
+INJ1	1	1	25	26	3*	0.1	/
+INJ1	1	1	27	28	3*	0.1	/
+INJ1	1	1	29	30	3*	0.1	/
+INJ1	1	1	31	32	3*	0.1	/
+INJ1	1	1	33	34	3*	0.1	/
+INJ1	1	1	35	36	3*	0.1	/
+INJ1	1	1	37	38	3*	0.1	/
+INJ1	1	1	39	40	3*	0.1	/
+INJ1	1	1	41	42	3*	0.1	/
+INJ1	1	1	43	44	3*	0.1	/
+INJ1	1	1	45	46	3*	0.1	/
+INJ1	1	1	47	48	3*	0.1	/
+INJ1	1	1	49	50	3*	0.1	/
+/
+
+WELLSTRE
+ SeqCO2 0.0 1.0 /
+/
+WINJGAS
+INJ1 STREAM SeqCO2 /
+/
+
+WCONINJE
+INJ1 GAS OPEN RATE 53527 1* 500 /
+/
+-- the rate var has units "Standard m^3 per day"
+-- Density of CO2 at Stand cond. is , 1.8682 kg/m^3 (be sure to check that value using the stand cond we specified)
+-- So 100 ton per day is 100000/1.8682  = 53527 sm3/day
+--The final value (500) is the maximum injection pressure before pressure controls the injection rate. 500 is super high, so if it is exceeded, the model is not really physical. Ideally it should work within less than 20 to 100 bars more than the initial pressure.
+
+TSTEP
+50 /
+
+--This treats injection like a well (so much less CO2 will go into the low-perm layers). An aquifer type thing that injects a constant amount of CO2 in every layer does seem like a fair comparison to me.
+--Note: having 400 well completions may slow down the eclipse simulator. A better would be to have 200 injectors each covering a two-gridblock section (e.g. covering a high and low block each) That is more physical than injecting a fixed rate from some aquifer. Also, while I'm on the subject I think that there is probably too many vertical gridblocks. Maybe try fewer to start with. To do that, you need to change this file, the DIMENS and the GRID file.
+--Note: to accomodate all these completions I have specified the max completion number in WELLDIMS to be 400. So if you change the number of completions per well to 2, you should also change that in the WELLDIMS keyword to let the simulator speed up accordingly
